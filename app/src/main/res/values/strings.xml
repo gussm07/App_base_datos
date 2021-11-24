@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">BaseDatosArtículos</string>
+    <string name="etCodigo">Ingrese código</string>
+    <string name="etDescripcion">Ingrese descripción</string>
+    <string name="etPrecio">Ingrese precio</string>
+    <string name="btnAlta"> Alta</string>
+    <string name="btnBaja">Baja</string>
+    <string name="btnModificar">Modificar</string>
+    <string name="btnbuscarCodigo">Buscar código</string>
+    <string name="btnBuscarDescripcion">Buscar Descripción</string>
+</resources>
