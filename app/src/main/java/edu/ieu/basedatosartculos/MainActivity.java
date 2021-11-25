@@ -2,7 +2,9 @@ package edu.ieu.basedatosartculos;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.Button;
@@ -50,6 +52,30 @@ public class MainActivity extends AppCompatActivity {
         btnNuevo.setOnClickListener(view -> {
             alta();
         });
+        btnBuscarCodigo.setOnClickListener(view -> {
+            buscarCodigo();
+        });
+    }
+
+    @SuppressLint("Range")
+    private void buscarCodigo() {
+        String strCodigo = etCodigo.getText().toString();
+        try{
+            Integer.parseInt(strCodigo);
+            AdminSQLiteOpenHelper adminDbHelper = new AdminSQLiteOpenHelper(this, TABLA);
+            SQLiteDatabase adminDb = adminDbHelper.getReadableDatabase();
+            Cursor cursor = adminDb.query(TABLA,null,CODIGO + " = ?", new String[]{strCodigo}, null, null, null);
+            if(cursor.moveToNext()){
+                etDescripcion.setText(cursor.getString(cursor.getColumnIndex(DESCRIPCION)));
+                etPrecio.setText(cursor.getString(cursor.getColumnIndex(PRECIO)));
+            }else{
+                Toast.makeText(this, "Codigo" +strCodigo+ "inexistente", Toast.LENGTH_SHORT).show();
+            }
+
+        }catch (NumberFormatException ex){
+            Toast.makeText(this, "Ingrese un código numérico correcto", Toast.LENGTH_SHORT).show();
+            ex.printStackTrace();
+        }
     }
 
     private void alta() {
